@@ -1,0 +1,215 @@
+<!-- Pantalla de Login -->
+<div *ngIf="!showRegister && !showRecovery" class="min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md fade-in">
+    <div class="text-center mb-8">
+      <div class="bg-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+        <span class="text-white text-2xl font-bold">⚽</span>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-800 mb-2">OrbitFit</h1>
+      <p class="text-gray-600">Gestión integral para equipos</p>
+    </div>
+
+    <form (ngSubmit)="onLogin()" class="space-y-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+        <input type="email" [(ngModel)]="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="tu@email.com" required>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
+        <input type="password" [(ngModel)]="password" name="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Ingresa tu contraseña" required>
+      </div>
+
+      <button 
+        type="submit" 
+        [disabled]="loading"
+        class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 disabled:opacity-50">
+        {{ loading ? 'Iniciando...' : 'Iniciar Sesión' }}
+      </button>
+    </form>
+
+    <div class="mt-6 space-y-3">
+      <button (click)="showRegisterForm()" class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-200">
+        Registrarse (Solo Jugadores)
+      </button>
+      <button (click)="showRecoveryForm()" class="w-full text-blue-600 hover:text-blue-800 transition duration-200">
+        ¿Olvidaste tu contraseña?
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- El resto del HTML (registro y recuperación) se mantiene igual -->
+<!-- Pantalla de Registro -->
+<div *ngIf="showRegister" class="min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md fade-in">
+    <div class="text-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-800">Registro de Jugador</h2>
+      <p class="text-gray-600">Completa tus datos</p>
+    </div>
+
+    <form (ngSubmit)="onRegister()" class="space-y-4">
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+          <input type="text" [(ngModel)]="registerData.firstName" name="firstName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" required>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Apellido</label>
+          <input type="text" [(ngModel)]="registerData.lastName" name="lastName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" required>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <input type="email" [(ngModel)]="registerData.email" name="email" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" required>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Edad</label>
+          <input type="number" [(ngModel)]="registerData.age" name="age" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" min="16" max="50" required>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Posición</label>
+          <select [(ngModel)]="registerData.position" name="position" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
+            <option value="PORTERO">Portero</option>
+            <option value="DEFENSA">Defensa</option>
+            <option value="MEDIOCAMPO">Mediocampo</option>
+            <option value="DELANTERO">Delantero</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Usuario</label>
+        <input type="text" [(ngModel)]="registerData.username" name="username" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" required>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+        <input type="password" [(ngModel)]="registerData.password" name="password" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" required>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+          <input type="tel" [(ngModel)]="registerData.phone" name="phone" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Número Camiseta</label>
+          <input type="number" [(ngModel)]="registerData.jerseyNumber" name="jerseyNumber" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
+        </div>
+      </div>
+
+      <div class="flex gap-3 mt-6">
+        <button 
+          type="submit" 
+          [disabled]="registerLoading"
+          class="flex-1 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-200 disabled:opacity-50">
+          {{ registerLoading ? 'Registrando...' : 'Registrarse' }}
+        </button>
+        <button 
+          type="button" 
+          (click)="showLoginForm()" 
+          class="flex-1 bg-gray-500 text-white py-3 rounded-lg font-semibold hover:bg-gray-600 transition duration-200">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- REEMPLAZA toda la sección de recuperación con esto: -->
+
+<!-- Pantalla de Recuperación Mejorada -->
+<div *ngIf="showRecovery" class="min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md fade-in">
+    <div class="text-center mb-6">
+      <div class="bg-blue-600 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+        <span class="text-white text-xl">🔐</span>
+      </div>
+      <h2 class="text-2xl font-bold text-gray-800">
+        {{ recoveryStep === 'email' ? 'Recuperar Contraseña' : 
+           recoveryStep === 'code' ? 'Verificar Código' : 'Nueva Contraseña' }}
+      </h2>
+      <p class="text-gray-600 mt-2">
+        {{ recoveryStep === 'email' ? 'Te enviaremos un código de verificación' : 
+           recoveryStep === 'code' ? 'Ingresa el código de 6 dígitos' : 'Crea tu nueva contraseña segura' }}
+      </p>
+      
+      <!-- Indicador de pasos -->
+      <div class="flex justify-center mt-4 mb-2">
+        <div class="flex space-x-2">
+          <div [class]="recoveryStep === 'email' ? 'bg-blue-600' : 'bg-gray-300'" class="w-3 h-3 rounded-full"></div>
+          <div [class]="recoveryStep === 'code' ? 'bg-blue-600' : 'bg-gray-300'" class="w-3 h-3 rounded-full"></div>
+          <div [class]="recoveryStep === 'newPassword' ? 'bg-blue-600' : 'bg-gray-300'" class="w-3 h-3 rounded-full"></div>
+        </div>
+      </div>
+    </div>
+
+    <form (ngSubmit)="onRecovery()" class="space-y-6">
+      <!-- Paso 1: Email -->
+      <div *ngIf="recoveryStep === 'email'">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Email registrado</label>
+        <input type="email" [(ngModel)]="recoveryEmail" name="recoveryEmail" 
+               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+               placeholder="tu@email.com" required>
+        <p class="text-sm text-gray-500 mt-2">
+          Usa el mismo email con el que te registraste.
+        </p>
+      </div>
+
+      <!-- Paso 2: Código -->
+      <div *ngIf="recoveryStep === 'code'">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Código de Verificación</label>
+        <input type="text" [(ngModel)]="recoveryCode" name="recoveryCode" 
+               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center text-lg font-mono tracking-widest" 
+               placeholder="ABCDEF" maxlength="6" required>
+        <p class="text-sm text-blue-600 mt-2 text-center">
+          💡 Para desarrollo: Puedes usar cualquier código (ej: 123456)
+        </p>
+        <p class="text-xs text-gray-500 mt-1 text-center">
+          En producción, este código llegaría por email.
+        </p>
+      </div>
+
+      <!-- Paso 3: Nueva Contraseña -->
+      <div *ngIf="recoveryStep === 'newPassword'">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Nueva Contraseña</label>
+        <input type="password" [(ngModel)]="newPassword" name="newPassword" 
+               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+               placeholder="Mínimo 6 caracteres" required minlength="6">
+        <p class="text-sm text-gray-500 mt-2">
+          Elige una contraseña segura que puedas recordar.
+        </p>
+      </div>
+
+      <div class="flex gap-3">
+        <button 
+          type="submit" 
+          [disabled]="registerLoading"
+          class="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 disabled:opacity-50">
+          {{ registerLoading ? 'Procesando...' : 
+             recoveryStep === 'email' ? 'Enviar Código' : 
+             recoveryStep === 'code' ? 'Verificar Código' : 'Actualizar Contraseña' }}
+        </button>
+        <button 
+          type="button" 
+          (click)="recoveryStep === 'email' ? showLoginForm() : resetRecovery()" 
+          [disabled]="registerLoading"
+          class="flex-1 bg-gray-500 text-white py-3 rounded-lg font-semibold hover:bg-gray-600 transition duration-200 disabled:opacity-50">
+          {{ recoveryStep === 'email' ? 'Volver al Login' : 'Empezar de Nuevo' }}
+        </button>
+      </div>
+    </form>
+
+    <!-- Información para desarrollo -->
+    <div *ngIf="recoveryStep === 'code'" class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+      <p class="text-sm text-yellow-800 text-center">
+        <strong>Modo Desarrollo:</strong> Puedes usar cualquier código.<br>
+        El sistema está configurado para aceptar cualquier valor.
+      </p>
+    </div>
+  </div>
+</div>

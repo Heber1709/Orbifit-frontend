@@ -1,0 +1,1236 @@
+<style>
+/* ===== VARIABLES Y RESET ===== */
+.dashboard-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e3a8a, #3730a3, #1e1b4b);
+  width: 100%;
+}
+
+.max-w-7xl {
+  max-width: 80rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== COMPONENTES PRINCIPALES ===== */
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cards-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.dashboard-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+  cursor: pointer;
+  text-align: left;
+  border: none;
+  width: 100%;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.dashboard-card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.team-stats-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+  cursor: pointer;
+  text-align: left;
+  border: none;
+  width: 100%;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.team-stats-card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.content-area {
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  min-height: 400px;
+  width: 100%;
+}
+
+/* ===== ESTADÍSTICAS Y GRÁFICAS ===== */
+.stats-card {
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  color: white;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.stats-card-blue {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.stats-card-green {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.stats-card-purple {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.stats-card-orange {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.stats-number {
+  font-size: 1.875rem;
+  font-weight: bold;
+}
+
+.chart-container {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  margin-bottom: 1.5rem;
+}
+
+.performance-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: #e5e7eb;
+  overflow: hidden;
+}
+
+.performance-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.performance-90 { background: linear-gradient(90deg, #10b981, #34d399); }
+.performance-80 { background: linear-gradient(90deg, #34d399, #6ee7b7); }
+.performance-70 { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.performance-60 { background: linear-gradient(90deg, #f59e0b, #f97316); }
+.performance-50 { background: linear-gradient(90deg, #ef4444, #f87171); }
+
+/* ===== CALENDARIO ===== */
+.calendar-sidebar {
+  width: 24rem;
+  background: white;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.calendar-header {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  padding: 1rem 1.5rem;
+  margin: -1.5rem -1.5rem 1rem -1.5rem;
+}
+
+.calendar-month {
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+}
+
+.calendar-close-btn {
+  background: #ef4444;
+  color: white;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  transition: all 0.2s;
+}
+
+.calendar-close-btn:hover {
+  background: #dc2626;
+  transform: scale(1.1);
+}
+
+.month-nav-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d1d5db;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1rem;
+}
+
+.month-nav-btn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.15rem;
+  margin-bottom: 1rem;
+}
+
+.week-day {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #4b5563;
+  text-align: center;
+  padding: 0.4rem 0;
+  text-transform: uppercase;
+  background: #f8fafc;
+  border-radius: 0.25rem;
+  margin: 0.1rem;
+}
+
+.calendar-day {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin: 0 auto;
+}
+
+.calendar-day:hover {
+  background: #3b82f6;
+  color: white;
+  transform: scale(1.05);
+}
+
+.calendar-day.today {
+  background: #ef4444;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+}
+
+.calendar-day.selected {
+  background: #10b981;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+}
+
+.calendar-day.other-month {
+  color: #9ca3af;
+  background: #f9fafb;
+}
+
+.calendar-day.other-month:hover {
+  background: #e5e7eb;
+  color: #6b7280;
+}
+
+/* ===== PUNTOS DE EVENTOS EN CALENDARIO ===== */
+.event-dot {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  z-index: 10;
+  box-shadow: 0 0 0 2px white;
+}
+
+.event-dot-training {
+  background: #10b981;
+}
+
+.event-dot-tournament {
+  background: #8b5cf6;
+}
+
+.event-dot-mixed {
+  background: linear-gradient(135deg, #10b981 50%, #8b5cf6 50%);
+}
+
+.calendar-day.has-events {
+  background: #f8fafc;
+  font-weight: 600;
+  position: relative;
+}
+
+.calendar-day.has-events:hover {
+  background: #3b82f6;
+  color: white;
+}
+
+.calendar-day.has-events.today {
+  background: #ef4444;
+  color: white;
+}
+
+.calendar-day.has-events.selected {
+  background: #10b981;
+  color: white;
+}
+
+/* ===== EVENTOS EN LISTA ===== */
+.event-item {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-left: 4px solid;
+  transition: all 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.event-item:hover {
+  transform: translateX(2px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.event-training {
+  background: #f0fdf4;
+  border-left-color: #10b981;
+  color: #065f46;
+}
+
+.event-tournament {
+  background: #f3e8ff;
+  border-left-color: #8b5cf6;
+  color: #6b21a8;
+}
+
+.event-meeting {
+  background: #fffbeb;
+  border-left-color: #f59e0b;
+  color: #92400e;
+}
+
+.event-match {
+  background: #fef2f2;
+  border-left-color: #ef4444;
+  color: #991b1b;
+}
+
+.event-actions {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  gap: 0.25rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.event-item:hover .event-actions {
+  opacity: 1;
+}
+
+.event-btn {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  transition: all 0.2s;
+}
+
+.edit-btn {
+  background: #3b82f6;
+  color: white;
+}
+
+.edit-btn:hover {
+  background: #2563eb;
+}
+
+.delete-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+/* ===== BOTONES FLOTANTES ===== */
+.floating-btn {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+  z-index: 40;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  transition: all 0.3s ease;
+}
+
+.floating-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.calendar-btn {
+  background: #3b82f6;
+  color: white;
+  left: 1rem;
+  top: 1rem;
+}
+
+.calendar-btn:hover {
+  background: #2563eb;
+}
+
+.chat-btn {
+  background: #10b981;
+  color: white;
+  right: 1rem;
+  bottom: 1rem;
+}
+
+.chat-btn:hover {
+  background: #059669;
+}
+
+/* ===== SIDEBARS ===== */
+.sidebar {
+  width: 24rem;
+  height: 100vh;
+  background: white;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  z-index: 50;
+  position: fixed;
+  top: 0;
+  transition: transform 0.3s ease-in-out;
+  overflow-y: auto;
+}
+
+.calendar-sidebar {
+  left: 0;
+  transform: translateX(-100%);
+}
+
+.calendar-sidebar.open {
+  transform: translateX(0);
+}
+
+.chat-sidebar {
+  right: 0;
+  transform: translateX(100%);
+}
+
+.chat-sidebar.open {
+  transform: translateX(0);
+}
+
+/* ===== FORMULARIOS Y BOTONES ===== */
+.form-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background: #10b981;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background: #059669;
+}
+
+.btn-secondary {
+  background: #6b7280;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-secondary:hover {
+  background: #4b5563;
+}
+
+.logout-btn {
+  background: #ef4444;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.logout-btn:hover {
+  background: #dc2626;
+}
+
+/* ===== ANIMACIONES ===== */
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+</style>
+
+<!-- Dashboard Entrenador -->
+<div class="dashboard-container">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center space-x-3">
+          <div class="bg-green-600 w-10 h-10 rounded-full flex items-center justify-center">
+            <span class="text-white font-bold">🏃</span>
+          </div>
+          <h1 class="text-xl font-bold text-gray-800">Panel de Entrenador</h1>
+        </div>
+        <div class="flex items-center space-x-4">
+          <span class="text-gray-700">Bienvenido, {{ currentUser?.firstName }}</span>
+          <button (click)="logout()" class="logout-btn">
+            Salir
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto p-6">
+    <!-- Quick Actions Grid -->
+    <div class="cards-grid">
+      <button (click)="showCoachProfile()" class="dashboard-card">
+        <div class="text-3xl mb-3">👤</div>
+        <h3 class="text-lg font-semibold text-gray-800">Mi Perfil</h3>
+        <p class="text-gray-600">Información personal</p>
+      </button>
+
+      <button (click)="showScheduleTraining()" class="dashboard-card">
+        <div class="text-3xl mb-3">📅</div>
+        <h3 class="text-lg font-semibold text-gray-800">Programar Entrenamientos</h3>
+        <p class="text-gray-600">Crear nuevas sesiones</p>
+      </button>
+
+      <button (click)="showRecordResults()" class="dashboard-card">
+        <div class="text-3xl mb-3">📝</div>
+        <h3 class="text-lg font-semibold text-gray-800">Registrar Resultados</h3>
+        <p class="text-gray-600">Anotar rendimiento</p>
+      </button>
+
+
+
+     <!-- POR ESTO: -->
+<button (click)="showTeamStats()" class="dashboard-card team-stats-card">
+  <div class="text-3xl mb-3">📊</div>
+  <h3 class="text-lg font-semibold">Estadísticas del Equipo</h3>
+  <p class="text-gray-600">Métricas y rendimiento</p>
+  <div class="text-xs text-gray-500 mt-2">
+    {{ teamStats.trainings }} entrenamientos • {{ teamStats.activePlayers }} jugadores
+  </div>
+</button>
+</div>
+    <!-- Dynamic Content Area -->
+    <div class="content-area">
+      
+      <!-- Welcome View -->
+      <div *ngIf="currentView === 'welcome'" class="fade-in">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Panel de Entrenador</h2>
+        <p class="text-gray-600">Gestiona tu equipo y entrenamientos desde aquí.</p>
+      </div>
+
+      <!-- Profile View -->
+      <div *ngIf="currentView === 'profile'" class="fade-in">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Perfil del Entrenador</h2>
+        
+        <div *ngIf="loading" class="text-center py-4">
+          <p class="text-gray-600">Guardando cambios...</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Nombre Completo</label>
+              <input type="text" [(ngModel)]="coachProfile.fullName" class="form-input" disabled>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <input type="email" [(ngModel)]="coachProfile.email" class="form-input" disabled>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Especialidad</label>
+              <select [(ngModel)]="coachProfile.specialization" class="form-input">
+                <option>Entrenamiento Físico</option>
+                <option>Táctica</option>
+                <option>Porteros</option>
+                <option>Juveniles</option>
+              </select>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Años de Experiencia</label>
+              <input type="number" [(ngModel)]="coachProfile.experienceYears" class="form-input">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Licencia</label>
+              <input type="text" [(ngModel)]="coachProfile.license" class="form-input">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+              <input type="tel" [(ngModel)]="coachProfile.phone" class="form-input">
+            </div>
+          </div>
+        </div>
+        <div class="mt-6">
+          <button (click)="updateCoachProfile()" [disabled]="loading" 
+                  class="btn-primary" [class.opacity-50]="loading">
+            {{ loading ? 'Guardando...' : 'Actualizar Perfil' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Schedule Training View -->
+      <div *ngIf="currentView === 'schedule'" class="fade-in">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">
+          {{ isEditMode ? 'Editar Entrenamiento' : 'Programar Entrenamiento' }}
+        </h2>
+        
+        <div *ngIf="loading" class="text-center py-4">
+          <p class="text-gray-600">{{ isEditMode ? 'Actualizando...' : 'Creando entrenamiento...' }}</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Entrenamiento</label>
+              <select [(ngModel)]="newTraining.type" class="form-input">
+                <option>Entrenamiento Físico</option>
+                <option>Práctica Táctica</option>
+                <option>Trabajo Técnico</option>
+                <option>Partido de Práctica</option>
+              </select>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Fecha</label>
+                <input type="date" [(ngModel)]="newTraining.date" class="form-input">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Hora</label>
+                <input type="time" [(ngModel)]="newTraining.time" class="form-input">
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Duración (minutos)</label>
+              <input type="number" [(ngModel)]="newTraining.duration" class="form-input">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Descripción</label>
+              <textarea rows="3" [(ngModel)]="newTraining.description" class="form-input" placeholder="Objetivos y actividades del entrenamiento..."></textarea>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Seleccionar Jugadores</h3>
+            <div class="space-y-2 max-h-64 overflow-y-auto">
+              <label *ngFor="let player of teamPlayers" class="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded">
+                <input type="checkbox" [(ngModel)]="player.selected" class="rounded">
+                <span>{{ player.name }} - {{ player.position }}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="mt-8 flex gap-4">
+          <button (click)="createTraining()" [disabled]="loading" 
+                  class="btn-primary" [class.opacity-50]="loading">
+            {{ loading ? (isEditMode ? 'Actualizando...' : 'Creando...') : (isEditMode ? 'Actualizar Entrenamiento' : 'Programar Entrenamiento') }}
+          </button>
+          <button (click)="showWelcome()" class="btn-secondary">
+            Cancelar
+          </button>
+        </div>
+      </div>
+
+      <!-- Record Results View -->
+      <div *ngIf="currentView === 'record'" class="fade-in">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Registrar Resultados de Entrenamiento</h2>
+        
+        <div *ngIf="loading" class="text-center py-4">
+          <p class="text-gray-600">Cargando...</p>
+        </div>
+        
+
+        <!-- Formulario de Registro de Resultados -->
+        <div class="space-y-6">
+          <!-- Selección de Entrenamiento -->
+          <div class="bg-blue-50 p-4 rounded-lg mb-6" *ngIf="!selectedTrainingForResults">
+            <h3 class="font-semibold text-gray-800 mb-3">Seleccionar Entrenamiento</h3>
+            <div class="space-y-3 max-h-60 overflow-y-auto">
+              <div *ngFor="let training of availableTrainings" 
+                  (click)="selectTrainingForResults(training)"
+                  class="p-3 border rounded-lg cursor-pointer hover:bg-blue-100 transition duration-200">
+                <div class="font-medium">{{ training.title }}</div>
+                <div class="text-sm text-gray-600">
+                  {{ training.date | date:'dd/MM/yyyy' }} - {{ training.type }} - 
+                  {{ training.duration }} minutos
+                </div>
+                <div class="text-xs text-gray-500 mt-1">
+                  {{ training.participants?.length || 0 }} jugadores participantes
+                </div>
+              </div>
+              <div *ngIf="availableTrainings.length === 0" class="text-center py-4 text-gray-500">
+                No hay entrenamientos programados
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario de Resultados -->
+          <div *ngIf="selectedTrainingForResults" class="space-y-6">
+            <!-- Información del Entrenamiento Seleccionado -->
+            <div class="bg-green-50 p-4 rounded-lg">
+              <div class="flex justify-between items-center">
+                <div>
+                  <h3 class="font-semibold text-gray-800">{{ selectedTrainingForResults.title }}</h3>
+                  <p class="text-gray-600">
+                    {{ selectedTrainingForResults.date | date:'dd/MM/yyyy' }} - 
+                    {{ selectedTrainingForResults.type }} - 
+                    {{ selectedTrainingForResults.duration }} minutos
+                  </p>
+                  <p class="text-sm text-gray-500 mt-1">
+                    {{ getPlayerNames().length }} jugadores participantes
+                  </p>
+                </div>
+                <div class="flex gap-2">
+                  <button (click)="clearResultsForm()" class="text-gray-500 hover:text-gray-700">
+                    Cambiar Entrenamiento
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Evaluación por Jugador -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                  Evaluación de Jugadores Participantes
+                  <span class="text-sm font-normal text-gray-500">({{ getPlayerNames().length }} jugadores)</span>
+                </h3>
+                <div class="space-y-4 max-h-96 overflow-y-auto">
+                  <div *ngFor="let playerName of getPlayerNames()" 
+                      class="border rounded-lg p-4">
+                    <div class="flex justify-between items-center mb-3">
+                      <span class="font-medium">{{ playerName }}</span>
+                      <span class="text-sm text-gray-500">{{ getPlayerPosition(playerName) }}</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-2 mb-3">
+                      <div>
+                        <label class="block text-xs text-gray-600 mb-1">Resistencia</label>
+                        <select [value]="trainingResults.players[playerName]?.endurance || 'good'"
+                                (change)="onPlayerRatingChange(playerName, 'endurance', $event)"
+                                class="w-full text-sm border rounded p-1">
+                          <option value="excellent">Excelente</option>
+                          <option value="good">Bueno</option>
+                          <option value="regular">Regular</option>
+                          <option value="needs_improvement">Necesita mejorar</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label class="block text-xs text-gray-600 mb-1">Técnica</label>
+                        <select [value]="trainingResults.players[playerName]?.technique || 'good'"
+                                (change)="onPlayerRatingChange(playerName, 'technique', $event)"
+                                class="w-full text-sm border rounded p-1">
+                          <option value="excellent">Excelente</option>
+                          <option value="good">Bueno</option>
+                          <option value="regular">Regular</option>
+                          <option value="needs_improvement">Necesita mejorar</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label class="block text-xs text-gray-600 mb-1">Actitud</label>
+                        <select [value]="trainingResults.players[playerName]?.attitude || 'good'"
+                                (change)="onPlayerRatingChange(playerName, 'attitude', $event)"
+                                class="w-full text-sm border rounded p-1">
+                          <option value="excellent">Excelente</option>
+                          <option value="good">Bueno</option>
+                          <option value="regular">Regular</option>
+                          <option value="needs_improvement">Necesita mejorar</option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <label class="block text-xs text-gray-600 mb-1">Observaciones</label>
+                      <textarea 
+                        [value]="trainingResults.players[playerName]?.observations || ''"
+                        (input)="onPlayerObservationsChange(playerName, $event)"
+                        class="w-full text-sm border rounded p-2" 
+                        rows="2" 
+                        placeholder="Observaciones específicas...">
+                      </textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Observaciones Generales y Calificación -->
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Observaciones Generales</h3>
+                <textarea 
+                  [(ngModel)]="trainingResults.generalObservations"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg" 
+                  rows="8" 
+                  placeholder="Notas sobre el entrenamiento, aspectos a mejorar, destacados del día...">
+                </textarea>
+                
+                <div class="mt-6">
+                  <label class="block text-sm font-medium text-gray-700 mb-3">Calificación General del Entrenamiento</label>
+                  <div class="flex space-x-2">
+                    <button 
+                      *ngFor="let rating of [1,2,3,4,5]" 
+                      (click)="setTrainingRating(rating)"
+                      [class]="'w-10 h-10 rounded-full text-white font-semibold transition duration-200 ' + 
+                              getRatingButtonClass(rating)">
+                      {{ rating }}
+                    </button>
+                  </div>
+                  <div class="text-xs text-gray-500 mt-2">
+                    Seleccionado: {{ trainingResults.rating }}/5
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="flex gap-4 pt-6 border-t">
+              <button 
+                *ngIf="!hasExistingResults()"
+                (click)="saveTrainingResults()" 
+                [disabled]="loading"
+                class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed" 
+                [class.opacity-50]="loading">
+                {{ loading ? 'Guardando...' : 'Guardar Resultados' }}
+              </button>
+              
+              <button 
+                *ngIf="hasExistingResults()"
+                (click)="updateTrainingResults()" 
+                [disabled]="loading"
+                class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed" 
+                [class.opacity-50]="loading">
+                {{ loading ? 'Actualizando...' : 'Actualizar Resultados' }}
+              </button>
+              
+              <button 
+                *ngIf="hasExistingResults()"
+                (click)="deleteTrainingResults(trainingResults.trainingId)"
+                [disabled]="loading"
+                class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed" 
+                [class.opacity-50]="loading">
+                {{ loading ? 'Eliminando...' : 'Eliminar Resultados' }}
+              </button>
+              
+              <button 
+                (click)="clearResultsForm()" 
+                class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition duration-200">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Stats View -->
+<div *ngIf="currentView === 'teamstats'" class="fade-in">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6">Estadísticas del Equipo</h2>
+  
+  <!-- Estadísticas Principales -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div class="stats-card stats-card-blue">
+      <h3 class="text-lg font-semibold mb-2">Jugadores Activos</h3>
+      <p class="stats-number">{{ teamStats.activePlayers }}</p>
+      <p class="text-blue-100 text-sm">Total en el equipo</p>
+    </div>
+    <div class="stats-card stats-card-green">
+      <h3 class="text-lg font-semibold mb-2">Entrenamientos</h3>
+      <p class="stats-number">{{ teamStats.trainings }}</p>
+      <p class="text-green-100 text-sm">Sesiones programadas</p>
+    </div>
+    <div class="stats-card stats-card-purple">
+      <h3 class="text-lg font-semibold mb-2">Rating Promedio</h3>
+      <p class="stats-number">{{ teamStats.averageRating }}/5</p>
+      <p class="text-purple-100 text-sm">Calificación general</p>
+    </div>
+    <div class="stats-card stats-card-orange">
+      <h3 class="text-lg font-semibold mb-2">Tiempo Total</h3>
+      <p class="stats-number">{{ teamStats.totalTrainingTime }}</p>
+      <p class="text-orange-100 text-sm">Minutos de entrenamiento</p>
+    </div>
+  </div>
+
+  <!-- Gráficas y Métricas Detalladas -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Rendimiento de Jugadores -->
+    <div class="chart-container">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4">🏃 Rendimiento de Jugadores</h3>
+      <div class="space-y-4">
+        <div *ngFor="let player of teamStats.playerPerformance" class="flex items-center justify-between">
+          <div class="flex-1">
+            <div class="flex justify-between items-center mb-1">
+              <span class="font-medium text-sm">{{ player.name }}</span>
+              <span class="text-xs {{ getPerformanceColor(player.performance) }} font-semibold">
+                {{ player.performance }}/5 {{ getTrendIcon(player.trend) }}
+              </span>
+            </div>
+            <div class="performance-bar">
+              <div class="performance-fill" 
+                   [class]="getPerformanceClass(player.performance)"
+                   [style.width.%]="getPerformanceWidth(player.performance)">
+              </div>
+            </div>
+            <div class="text-xs text-gray-500 mt-1">{{ player.position }}</div>
+          </div>
+        </div>
+        <div *ngIf="teamStats.playerPerformance.length === 0" class="text-center py-4 text-gray-500">
+          No hay datos de rendimiento disponibles
+        </div>
+      </div>
+    </div>
+
+    <!-- Distribución de Entrenamientos -->
+    <div class="chart-container">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4">📊 Tipos de Entrenamiento</h3>
+      <div class="space-y-3">
+        <div *ngFor="let training of teamStats.trainingTypes" class="flex items-center justify-between">
+          <span class="text-sm font-medium">{{ training.type }}</span>
+          <div class="flex items-center space-x-2">
+            <span class="text-xs text-gray-600">{{ training.count }} ({{ training.percentage }}%)</span>
+            <div class="w-16 bg-gray-200 rounded-full h-2">
+              <div class="bg-blue-500 h-2 rounded-full" [style.width.%]="training.percentage"></div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="teamStats.trainingTypes.length === 0" class="text-center py-4 text-gray-500">
+          No hay entrenamientos programados
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Métricas Adicionales -->
+  <div class="chart-container mt-6">
+    <h3 class="text-lg font-semibold text-gray-800 mb-4">📈 Resumen del Equipo</h3>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+      <div class="p-4 bg-blue-50 rounded-lg">
+        <div class="text-2xl font-bold text-blue-600">{{ teamStats.activePlayers * 3 }}</div>
+        <div class="text-sm text-blue-600">Horas/Semana</div>
+      </div>
+      <div class="p-4 bg-green-50 rounded-lg">
+        <div class="text-2xl font-bold text-green-600">{{ teamStats.totalTrainingTime }}</div>
+        <div class="text-sm text-green-600">Minutos Totales</div>
+      </div>
+      <div class="p-4 bg-purple-50 rounded-lg">
+        <div class="text-2xl font-bold text-purple-600">{{ teamStats.averageRating }}/5</div>
+        <div class="text-sm text-purple-600">Rating Promedio</div>
+      </div>
+      <div class="p-4 bg-orange-50 rounded-lg">
+        <div class="text-2xl font-bold text-orange-600">{{ teamStats.trainings }}</div>
+        <div class="text-sm text-orange-600">Total Sesiones</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Floating Action Buttons -->
+  <button (click)="toggleCalendar()" class="floating-btn calendar-btn">
+    📅
+  </button>
+
+  <button (click)="toggleChat()" class="floating-btn chat-btn">
+    💬
+  </button>
+</div>
+
+<!-- Calendar Sidebar - ACTUALIZADO -->
+<div [class]="'sidebar calendar-sidebar ' + (calendarVisible ? 'open' : '')">
+  <div class="p-0">
+    <div class="calendar-header pt-8 pb-2"> 
+      <div class="flex justify-between items-center mb-3">
+        <div class="flex-1 text-center">
+          <h2 class="text-lg font-bold">📅 Calendario</h2>
+        </div>
+        <button (click)="toggleCalendar()" class="calendar-close-btn bg-red-500 hover:bg-red-600">
+          ×
+        </button>
+      </div>
+      <div class="flex justify-between items-center">
+        <button (click)="previousMonth()" class="month-nav-btn text-black bg-white bg-opacity-20 hover:bg-opacity-30">
+          ‹
+        </button>
+        <h3 class="calendar-month">{{ currentMonth }}</h3>
+        <button (click)="nextMonth()" class="month-nav-btn text-black bg-white bg-opacity-20 hover:bg-opacity-30">
+          ›
+        </button>
+      </div>
+    </div>
+
+      <!-- Selector de Mes Mejorado -->
+      <div class="flex justify-between items-center">
+        <button (click)="previousMonth()" class="month-nav-btn text-white bg-white bg-opacity-20 hover:bg-opacity-30">
+          ‹
+        </button>
+        <h3 class="calendar-month">{{ currentMonth }}</h3>
+        <button (click)="nextMonth()" class="month-nav-btn text-white bg-white bg-opacity-20 hover:bg-opacity-30">
+          ›
+        </button>
+      </div>
+    </div>
+
+    <div class="p-4">
+      <!-- Días de la semana mejorados -->
+      <div class="calendar-grid mb-2">
+        <div class="week-day">D</div>
+        <div class="week-day">L</div>
+        <div class="week-day">M</div>
+        <div class="week-day">M</div>
+        <div class="week-day">J</div>
+        <div class="week-day">V</div>
+        <div class="week-day">S</div>
+      </div>
+
+      <!-- Días del calendario mejorados - ALINEACIÓN PERFECTA -->
+      <div class="calendar-grid">
+        <div *ngFor="let day of calendarDays" 
+             [class]="getDayClass(day)"
+             (click)="selectDate(day)"
+             class="calendar-day">
+          {{ day.date.getDate() }}
+          <div *ngIf="hasEvent(day.date)" 
+               [class]="'event-dot ' + getEventDotClass(day.date)"></div>
+        </div>
+      </div>
+
+      <!-- Eventos del día seleccionado mejorados -->
+      <div class="mt-4 border-t pt-4">
+        <h4 class="font-semibold text-gray-800 mb-3 text-sm">
+          Eventos - {{ selectedDate ? (selectedDate | date:'dd/MM/yyyy') : 'Hoy' }}
+        </h4>
+        <div class="space-y-2 max-h-60 overflow-y-auto">
+
+          <!-- En la sección de eventos del calendario, REEMPLAZA esto: -->
+<div *ngFor="let event of getDayEvents(); let i = index" 
+     [class]="'event-item ' + getEventItemClass(event)">
+  <div class="font-medium text-sm">{{ event.title }}</div>
+  <div class="text-xs opacity-75 mt-1">{{ event.time }}</div>
+  <div *ngIf="event.description" class="text-xs mt-1 text-opacity-90">{{ event.description }}</div>
+
+   <div class="text-xs mt-1">
+    <span [class]="event.eventType === 'tournament' ? 
+                  'bg-purple-100 text-purple-800 px-2 py-1 rounded' : 
+                  'bg-green-100 text-green-800 px-2 py-1 rounded'">
+      {{ event.eventType === 'tournament' ? '🏆 Torneo' : '🏋️ Entrenamiento' }}
+    </span>
+  </div>
+            
+  <!-- Botones de editar/eliminar - SOLO PARA ENTRENAMIENTOS -->
+  <div *ngIf="event.eventType === 'training'" class="event-actions">
+    <button (click)="editTraining(event, i)" class="event-btn edit-btn" title="Editar">
+      ✏️
+    </button>
+    <button (click)="deleteTraining(event, i)" class="event-btn delete-btn" title="Eliminar">
+      🗑️
+    </button>
+  </div>
+</div>
+          
+          <div *ngIf="getDayEvents().length === 0" class="text-gray-500 text-sm text-center py-4">
+            No hay eventos para este día
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Chat Sidebar -->
+<div [class]="'sidebar chat-sidebar ' + (chatVisible ? 'open' : '')">
+  <div class="p-4 border-b bg-green-600 text-white">
+    <div class="flex justify-between items-center">
+      <div class="flex-1 text-center"> <!-- Contenedor para centrar -->
+        <h2 class="text-lg font-bold">💬 Chat General</h2>
+      </div>
+      <button (click)="toggleChat()" class="calendar-close-btn bg-red-500 hover:bg-red-600">
+        ×
+      </button>
+    </div>
+  </div>
+  
+  <!-- Área de mensajes -->
+  <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+    <!-- Mensaje cuando no hay mensajes -->
+    <div *ngIf="chatMessages.length === 0" class="text-center text-gray-500 py-8">
+      <div class="text-4xl mb-2">💬</div>
+      <p class="font-medium">No hay mensajes aún</p>
+      <p class="text-sm mt-1">Sé el primero en enviar un mensaje</p>
+    </div>
+
+    <!-- Lista de mensajes -->
+    <div *ngFor="let message of chatMessages" 
+         class="flex"
+         [class.justify-end]="isOwnMessage(message)" 
+         [class.justify-start]="!isOwnMessage(message)">
+      
+      <!-- Mensaje de OTROS usuarios -->
+      <div *ngIf="!isOwnMessage(message)" class="flex items-start space-x-3 max-w-xs">
+        <!-- Avatar -->
+        <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-semibold flex-shrink-0">
+          {{ getAvatarInitials(message.sender) }}
+        </div>
+        <!-- Contenido del mensaje -->
+        <div class="bg-white border border-gray-300 rounded-2xl p-4 shadow-sm">
+          <!-- Información del remitente -->
+          <div class="flex items-center space-x-2 mb-2">
+            <span class="font-semibold text-sm text-gray-900">
+              {{ message.sender.firstName }} {{ message.sender.lastName }}
+            </span>
+            <span class="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded-full capitalize font-medium">
+              {{ message.sender.role.toLowerCase() }}
+            </span>
+          </div>
+          <!-- Texto del mensaje -->
+          <div class="text-sm text-gray-800 break-words leading-relaxed">{{ message.content }}</div>
+          <!-- Hora -->
+          <div class="text-xs text-gray-500 mt-2">{{ message.createdAt | date:'HH:mm' }}</div>
+        </div>
+      </div>
+      
+      <!-- Mensaje PROPIO (Coach) -->
+      <div *ngIf="isOwnMessage(message)" class="flex flex-col items-end max-w-xs">
+        <!-- Información del remitente (tú) -->
+        <div class="flex items-center space-x-2 mb-1 px-2">
+          <span class="text-xs text-gray-600 font-medium">Tú</span>
+          <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full capitalize font-medium">
+            {{ currentUser?.role?.toLowerCase() }}
+          </span>
+        </div>
+        <!-- Contenido del mensaje -->
+        <div class="bg-green-600 text-white rounded-2xl p-4 shadow-sm">
+          <!-- Texto del mensaje -->
+          <div class="text-sm break-words leading-relaxed">{{ message.content }}</div>
+          <!-- Hora y estado -->
+          <div class="text-xs text-green-200 mt-2 flex justify-between items-center">
+            <span>{{ message.createdAt | date:'HH:mm' }}</span>
+            <span class="text-xs ml-2">✓✓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Área de escritura - MEJORADA -->
+  <div class="p-4 border-t bg-white border-gray-200">
+    <div class="flex flex-col space-y-3">
+      <!-- Input de texto - AHORA SE VE BIEN -->
+      <div class="relative">
+        <input 
+          type="text" 
+          [(ngModel)]="newMessage"
+          (keydown.enter)="sendMessage()"
+          placeholder="Escribe tu mensaje aquí..." 
+          class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition duration-200 text-gray-900 bg-white text-base placeholder-gray-500"
+          [class.border-red-400]="!newMessage.trim()">
+        
+        <!-- Indicador de texto visible -->
+        <div *ngIf="newMessage" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-xs text-gray-500 bg-white px-1">
+          {{ newMessage.length }}/500
+        </div>
+      </div>
+      
+      <!-- Botón enviar -->
+      <button 
+        (click)="sendMessage()" 
+        [disabled]="!newMessage.trim()"
+        class="w-full bg-green-600 text-white py-3 rounded-xl hover:bg-green-700 transition duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed font-semibold text-base">
+        Enviar Mensaje
+      </button>
+    </div>
+    
+    <p class="text-xs text-gray-500 mt-3 text-center">
+      💡 Presiona Enter para enviar rápidamente
+    </p>
+  </div>
+</div>

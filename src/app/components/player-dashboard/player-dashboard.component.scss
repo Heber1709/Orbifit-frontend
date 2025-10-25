@@ -1,0 +1,234 @@
+/* Fuerzar dimensiones exactas del prototipo */
+
+/* CONTENEDOR PRINCIPAL */
+.max-w-7xl {
+  max-width: 80rem !important; /* 1280px */
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.p-6 {
+  padding: 1.5rem !important;
+}
+
+/* GRID DE CARDS - Dimensiones exactas */
+.grid.grid-cols-1 {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 1.5rem !important;
+  margin-bottom: 2rem !important;
+}
+
+@media (min-width: 768px) {
+  .grid.md\:grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid.lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+}
+
+/* CARDS INDIVIDUALES - Tamaño fijo como prototipo */
+.bg-white.p-6.rounded-xl {
+  background: white !important;
+  padding: 1.5rem !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.2s !important;
+  cursor: pointer !important;
+  text-align: left !important;
+  border: none !important;
+  width: 100% !important;
+  min-height: 140px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+
+.bg-white.p-6.rounded-xl:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* CARD ESPECIAL (Próximo Partido) */
+.bg-gradient-to-r.from-blue-500.to-blue-600.p-6.rounded-xl {
+  background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+  padding: 1.5rem !important;
+  border-radius: 0.75rem !important;
+  color: white !important;
+  min-height: 140px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+
+/* EMOJIS en cards */
+.text-3xl.mb-3 {
+  font-size: 1.875rem !important;
+  margin-bottom: 0.75rem !important;
+  display: block !important;
+}
+
+/* Títulos en cards */
+.text-lg.font-semibold.text-gray-800 {
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+  color: #1f2937 !important;
+  margin-bottom: 0.25rem !important;
+  display: block !important;
+}
+
+/* Texto descriptivo en cards */
+.text-gray-600 {
+  color: #4b5563 !important;
+  font-size: 0.875rem !important;
+  line-height: 1.25rem !important;
+  display: block !important;
+}
+
+/* ÁREA DE CONTENIDO PRINCIPAL */
+.bg-white.rounded-xl.shadow-lg.p-6 {
+  background: white !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+  padding: 1.5rem !important;
+  min-height: 400px !important;
+  width: 100% !important;
+}
+
+/* NAVEGACIÓN */
+.bg-white.shadow-lg {
+  background: white !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Botones de la navegación */
+.bg-red-500.text-white.px-4.py-2.rounded-lg {
+  background: #ef4444 !important;
+  color: white !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 0.5rem !important;
+  border: none !important;
+  cursor: pointer !important;
+  font-weight: 500 !important;
+}
+
+.bg-red-500.text-white.px-4.py-2.rounded-lg:hover {
+  background: #dc2626 !important;
+}
+
+/* BOTONES FLOTANTES - Ya están bien */
+.fixed.left-4.top-4,
+.fixed.right-4.bottom-4 {
+  width: 3.5rem !important;
+  height: 3.5rem !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 1.25rem !important;
+  z-index: 40 !important;
+  border: none !important;
+  cursor: pointer !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* SIDEBARS */
+.fixed.left-0.top-0.h-full.w-80,
+.fixed.right-0.top-0.h-full.w-80 {
+  width: 20rem !important;
+  height: 100vh !important;
+  background: white !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+  z-index: 50 !important;
+}
+
+/* STATS CARDS */
+.bg-gradient-to-r.from-blue-500.to-blue-600.p-6.rounded-xl.text-white,
+.bg-gradient-to-r.from-green-500.to-green-600.p-6.rounded-xl.text-white,
+.bg-gradient-to-r.from-purple-500.to-purple-600.p-6.rounded-xl.text-white {
+  padding: 1.5rem !important;
+  border-radius: 0.75rem !important;
+  color: white !important;
+  min-height: 120px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}
+
+/* Texto en stats cards */
+.text-3xl.font-bold {
+  font-size: 1.875rem !important;
+  font-weight: bold !important;
+}
+
+/* FORMULARIOS */
+.w-full.px-3.py-2.border.border-gray-300.rounded-lg {
+  width: 100% !important;
+  padding: 0.5rem 0.75rem !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 0.5rem !important;
+  font-size: 1rem !important;
+}
+
+/* ENTRENAMIENTOS */
+.border-l-4.p-4.rounded-lg {
+  border-left-width: 4px !important;
+  border-left-style: solid !important;
+  padding: 1rem !important;
+  border-radius: 0.5rem !important;
+  margin-bottom: 1rem !important;
+}
+
+/* Badges de estado */
+.text-white.px-3.py-1.rounded-full.text-sm {
+  color: white !important;
+  padding: 0.25rem 0.75rem !important;
+  border-radius: 9999px !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+}
+
+/* Asegurar que todo el layout ocupe el ancho completo */
+.min-h-screen.bg-gray-50 {
+  min-height: 100vh !important;
+  background-color: #f9fafb !important;
+  width: 100% !important;
+}
+
+/* Text colors específicos */
+.text-blue-100 {
+  color: #dbeafe !important;
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+  .p-6 {
+    padding: 1rem !important;
+  }
+  
+  .bg-white.p-6.rounded-xl {
+    padding: 1rem !important;
+    min-height: 120px !important;
+  }
+}
+
+/* Animación */
+.fade-in {
+  animation: fadeIn 0.3s ease-in !important;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
