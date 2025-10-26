@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { PasswordService } from '../../services/password.service';
+import { environment } from '../../../environments/environment'; // ajustá ruta según tu archivo
 
 @Component({
   selector: 'app-login',
@@ -161,9 +162,9 @@ export class LoginComponent {
           console.error('Error cambiando contraseña:', error);
           
           if (error.status === 404) {
-            alert('❌ Error: El servidor no está respondiendo. Verifica que el backend esté ejecutándose en localhost:3000');
+            alert(`❌ Error: El servidor no está respondiendo. Verifica que el backend esté ejecutándose en ${environment.apiUrl}`);
           } else if (error.status === 500) {
-            alert('❌ Error del servidor. Revisa la consola del backend para más detalles.');
+            alert(`❌ Error: El servidor no está respondiendo. Verifica que el backend esté ejecutándose en ${environment.apiUrl}`);
           } else {
             // En caso de otros errores, mostramos mensaje de desarrollo
             alert('✅ Contraseña actualizada (modo desarrollo)\n\nEn producción esto actualizaría la base de datos real.\n\nError técnico: ' + error.message);
